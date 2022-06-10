@@ -12,36 +12,37 @@ struct Buku
     int totalharga;
     int dibeli=0;
 };
-void inputBuku(Buku buku[],int &y){
+void inputBuku(Buku buku[],int &triggerArray){
 	cin.ignore();
-	cout<<"Masukkan Judul Buku   : ";getline(cin,buku[y].judul);
-	cout<<"Masukkan Penulis Buku : ";getline(cin,buku[y].penulis);
-	cout<<"Masukkan Stok Buku    : ";cin>>buku[y].stok;
-	cout<<"Masukkan Kode Buku    : ";cin>>buku[y].kode;
-	cout<<"Masukkan Harga Buku   : ";cin>>buku[y].harga;
-	buku[y].no=(y+1);
-	y++;
+	cout<<"Masukkan Judul Buku   : ";getline(cin,buku[triggerArray].judul);
+	cout<<"Masukkan Penulis Buku : ";getline(cin,buku[triggerArray].penulis);
+	cout<<"Masukkan Stok Buku    : ";cin>>buku[triggerArray].stok;
+	cout<<"Masukkan Kode Buku    : ";cin>>buku[triggerArray].kode;
+	cout<<"Masukkan Harga Buku   : ";cin>>buku[triggerArray].harga;
+	buku[triggerArray].no=(triggerArray+1);
+	triggerArray++;
 	system("cls");
 }
-void tampilBuku(Buku buku[],int y){
-	for(int i=0;i<y;i++){
+void tampilBuku(Buku buku[],int triggerArray,int nomer){
+	for(int i=0;i<triggerArray;i++){
 		cout<<setiosflags(ios::left);
 		cout<<"= ";
-		cout<<setw(3)<<buku[i].no;
+		cout<<setw(3)<<nomer;
 		cout<<" | "<<setw(20)<<buku[i].judul;
 		cout<<" | "<<setw(15)<<buku[i].penulis;
 		cout<<" | "<<setw(5)<<buku[i].stok;
 		cout<<" | "<<setw(6)<<buku[i].kode;
 		cout<<" | "<<setw(8)<<buku[i].harga;
 		cout<<" ="<<endl;
+		nomer++;
 	}
 }
-void keranjang(Buku buku[],int y,int banyakBuku[],int x,int &totalBelanja){
-	for(int i=0;i<y;i++){
+void keranjang(Buku buku[],int triggerArray,int banyakBuku[],int nomer,int &totalBelanja){
+	for(int i=0;i<triggerArray;i++){
 		if(banyakBuku[i]>0){
 			cout<<setiosflags(ios::left);
 			cout<<"= ";
-			cout<<setw(3)<<(x);
+			cout<<setw(3)<<(nomer);
 			cout<<" | "<<setw(20)<<buku[i].judul;
 			cout<<" | "<<setw(15)<<buku[i].penulis;
 			cout<<" | "<<setw(8)<<buku[i].harga;
@@ -49,15 +50,28 @@ void keranjang(Buku buku[],int y,int banyakBuku[],int x,int &totalBelanja){
 			cout<<" | "<<setw(8)<<buku[i].totalharga;
 			cout<<" ="<<endl;
 			totalBelanja = totalBelanja + buku[i].totalharga;
-			x += 1;
+			nomer += 1;
 		}
 	}
+}
+void sortingData(Buku buku[],int triggerArray){
+    for (int i=0;i<=triggerArray;i++){
+        for(int j=0;j<=triggerArray-i-1;j++){
+            if (buku[j].judul.compare(buku[j + 1].judul) > 0 ){
+                swap(buku[j].judul,buku[j+1].judul);
+                swap(buku[j].penulis,buku[j+1].penulis);
+                swap(buku[j].harga,buku[j+1].harga);
+                swap(buku[j].kode,buku[j+1].kode);
+                swap(buku[j].stok,buku[j+1].stok);
+            }
+        }
+    }
 }
 int main(){
 	int pilihMenu;
 	string pass;
 	char kondisi;
-	int x=1,y=0,z,Qty,ubahData,totalBelanja=0;
+	int beliBuku,nomer=1,triggerArray=0,pilihUbahdata,Qty,ubahData,totalBelanja=0;
 	Buku buku[1000];
 	int banyakBuku[1000];
 	//Data Tester aja
@@ -67,7 +81,7 @@ int main(){
 	buku[0].stok=10000;
 	buku[0].kode="1AE3BF";
 	buku[0].harga=10000000;
-	y=1;
+	triggerArray=1;
 	//Sampe sini
 	do{
 		menuUtama:
@@ -84,7 +98,7 @@ int main(){
     	system("cls");
     	switch(pilihMenu){
     		case 1:
-    			if(y<1){
+    			if(triggerArray<1){
     				cout<<"Menu Buku Kosong!\n";
         			cout<<"Silahkan Isi Terlebih Dahulu!\n\n";
         			system("pause");
@@ -97,22 +111,20 @@ int main(){
             		cout<<"============================================================================\n";
             		cout<<"= No  |      Judul Buku      |     Penulis     | Stok  |  Kode  |  Harga   =\n";
             		cout<<"============================================================================\n";
-            		tampilBuku(buku,y);
+            		tampilBuku(buku,triggerArray,nomer);
+            		sortingData(buku,triggerArray);
             		cout<<"============================================================================\n";
             		cout<<"= 0   | Kembali Ke Menu Utama                                              =\n";
             		cout<<"============================================================================\n";
-            		cout<<"\nPilih buku yang akan dibeli : ";cin>>Qty;
-            		for (int i=0;i<y;i++){
-            			if(Qty==(i+1)){
+            		cout<<"\nPilih buku yang akan dibeli : ";cin>>beliBuku;
+            		for (int i=0;i<triggerArray;i++){
+            			if(beliBuku==(i+1)){
             				cout<<"Banyak buku : ";cin>>banyakBuku[i];
             				buku[i].totalharga=banyakBuku[i]*buku[i].harga;
             				buku[i].stok=buku[i].stok - banyakBuku[i];
-            			}else if(Qty==0){
+            			}else if(beliBuku==0){
             				system("cls");
             				goto menuUtama;
-            			}else{
-            				system("cls");
-            				goto beli;
             			}
             		}
             		cout<<"Ingin membeli buku lain? (y/t) : ";cin>>kondisi;
@@ -126,7 +138,7 @@ int main(){
             			cout<<"============================================================================\n";
             			cout<<"= No  |      Judul Buku      |     Penulis     |  Harga   | Qty |  Total   =\n";
             			cout<<"============================================================================\n";
-            			keranjang(buku,y,banyakBuku,x,totalBelanja);
+            			keranjang(buku,triggerArray,banyakBuku,nomer,totalBelanja);
             			cout<<"============================================================================\n";
             			cout<<"=                          Total Belanja                        | "<<setw(8)<<totalBelanja<<" =\n";
             			cout<<"============================================================================\n";
@@ -144,11 +156,11 @@ int main(){
     				cout<<"2. Mengubah data buku\n";
     				cout<<"0. Kembali           \n";
     				cout<<"=====================\n";
-    				cout<<"Masukkan pilihan : ";cin>>z;
-    				if(z==1){
+    				cout<<"Masukkan pilihan : ";cin>>pilihUbahdata;
+    				if(pilihUbahdata==1){
     					system("cls");
-    					inputBuku(buku,y);
-    				}else if(z==2){
+    					inputBuku(buku,triggerArray);
+    				}else if(pilihUbahdata==2){
     					ubahdata:
     					system("cls");
     					cout<<"============================================================================\n";
@@ -156,12 +168,12 @@ int main(){
             			cout<<"============================================================================\n";
             			cout<<"= No  |      Judul Buku      |     Penulis     | Stok  |  Kode  |  Harga   =\n";
             			cout<<"============================================================================\n";
-            			tampilBuku(buku,y);
+            			tampilBuku(buku,triggerArray,nomer);
             			cout<<"============================================================================\n";
             			cout<<"= 0   | Kembali Ke Menu Utama                                              =\n";
             			cout<<"============================================================================\n";
             			cout<<"\nPilih buku yang akan diubah : ";cin>>ubahData;
-            			for(int i=0;i<y;i++){
+            			for(int i=0;i<triggerArray;i++){
             				if (ubahData == buku[i].no){
         	        			cin.ignore();
             	    			cout<<"Masukan Judul Buku Yang Baru	   : ";getline(cin,buku[i].judul);
@@ -182,7 +194,7 @@ int main(){
             	    			goto ubahdata;
 							}
 						}
-    				}else if(z==0){
+    				}else if(pilihUbahdata==0){
     					system("cls");
     					goto menuUtama;
     				}else{
