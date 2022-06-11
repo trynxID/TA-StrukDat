@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <iomanip>
 using namespace std;
 struct Buku
@@ -54,10 +55,36 @@ void keranjang(Buku buku[],int triggerArray,int banyakBuku[],int nomer,int &tota
 		}
 	}
 }
-void sortingData(Buku buku[],int triggerArray){
-    for (int i=0;i<=triggerArray;i++){
-        for(int j=0;j<=triggerArray-i-1;j++){
-            if (buku[j].judul.compare(buku[j + 1].judul) > 0 ){
+void sortingJudul(Buku buku[],int triggerArray){
+    for (int i=0;i<triggerArray;i++){
+        for(int j=0;j<triggerArray-i-1;j++){
+            if (buku[j].judul.compare(buku[j + 1].judul) > 0 ){ 
+                swap(buku[j].judul,buku[j+1].judul);
+                swap(buku[j].penulis,buku[j+1].penulis);
+                swap(buku[j].harga,buku[j+1].harga);
+                swap(buku[j].kode,buku[j+1].kode);
+                swap(buku[j].stok,buku[j+1].stok);
+            }
+        }
+    }
+}
+void sortingPenulis(Buku buku[],int triggerArray){
+    for (int i=0;i<triggerArray;i++){
+        for(int j=0;j<triggerArray-i-1;j++){
+            if (buku[j].penulis.compare(buku[j + 1].penulis) > 0 ){ 
+                swap(buku[j].judul,buku[j+1].judul);
+                swap(buku[j].penulis,buku[j+1].penulis);
+                swap(buku[j].harga,buku[j+1].harga);
+                swap(buku[j].kode,buku[j+1].kode);
+                swap(buku[j].stok,buku[j+1].stok);
+            }
+        }
+    }
+}
+void sortingHarga(Buku buku[],int triggerArray){
+    for (int i=0;i<triggerArray;i++){
+        for(int j=0;j<triggerArray-i-1;j++){
+            if (buku[j].harga > (buku[j + 1].harga)){ 
                 swap(buku[j].judul,buku[j+1].judul);
                 swap(buku[j].penulis,buku[j+1].penulis);
                 swap(buku[j].harga,buku[j+1].harga);
@@ -71,7 +98,7 @@ int main(){
 	int pilihMenu;
 	string pass;
 	char kondisi;
-	int beliBuku,nomer=1,triggerArray=0,pilihUbahdata,Qty,ubahData,totalBelanja=0;
+	int beliBuku,nomer=1,triggerArray=0,pilihUbahdata,pilihSort,Qty,ubahData,totalBelanja=0;
 	Buku buku[1000];
 	int banyakBuku[1000];
 	//Data Tester aja
@@ -93,8 +120,7 @@ int main(){
     	cout<<"= 2. Admin Mode                                                            =\n";
     	cout<<"= 3. Exit/Keluar                                                           =\n";
     	cout<<"============================================================================\n";
-    	cout<<"  Masukan Pilihan : ";
-    	cin>>pilihMenu;
+    	cout<<"  Masukan Pilihan : ";cin>>pilihMenu;
     	system("cls");
     	switch(pilihMenu){
     		case 1:
@@ -107,12 +133,29 @@ int main(){
     			}else{
     				beli:
     				cout<<"============================================================================\n";
+    				cout<<"=                      Silahkan Pilih Jenis Sorting                        =\n";
+    				cout<<"============================================================================\n";
+    				cout<<"= 1. Sorting dari judul (A/Z)                                              =\n";
+    				cout<<"= 2. Sorting dari penulis (A/Z)                                            =\n";
+    				cout<<"= 3. Sorting dari harga (Low/High)                                         =\n";
+    				cout<<"============================================================================\n";
+    				cout<<"  Masukan Pilihan : ";cin>>pilihSort;
+    				system("cls");
+    				if(pilihSort==1){
+    					sortingJudul(buku,triggerArray);
+    				}else if(pilihSort==2){
+    					sortingPenulis(buku,triggerArray);
+    				}else if(buku,triggerArray){
+    					sortingHarga(buku,triggerArray);
+    				}else{
+    					
+    				}
+    				cout<<"============================================================================\n";
             		cout<<"=                              Pembelian Buku                              =\n";
             		cout<<"============================================================================\n";
             		cout<<"= No  |      Judul Buku      |     Penulis     | Stok  |  Kode  |  Harga   =\n";
             		cout<<"============================================================================\n";
             		tampilBuku(buku,triggerArray,nomer);
-            		sortingData(buku,triggerArray);
             		cout<<"============================================================================\n";
             		cout<<"= 0   | Kembali Ke Menu Utama                                              =\n";
             		cout<<"============================================================================\n";
