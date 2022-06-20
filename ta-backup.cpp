@@ -105,9 +105,9 @@ int main(){
 	buku[0].no=1;
 	buku[0].judul="Laskar Pelangi";
 	buku[0].penulis="Andrea Hirata";
-	buku[0].stok=10000;
+	buku[0].stok=10;
 	buku[0].kode="1AE3BF";
-	buku[0].harga=10000000;
+	buku[0].harga=100000;
 	triggerArray=1;
 	//Sampe sini
 	do{
@@ -150,6 +150,7 @@ int main(){
     				}else{
     					
     				}
+    				Checkpointbuku:
     				cout<<"============================================================================\n";
             		cout<<"=                              Pembelian Buku                              =\n";
             		cout<<"============================================================================\n";
@@ -163,11 +164,20 @@ int main(){
             		for (int i=0;i<triggerArray;i++){
             			if(beliBuku==(i+1)){
             				cout<<"Banyak buku : ";cin>>banyakBuku[i];
-            				buku[i].totalharga=banyakBuku[i]*buku[i].harga;
-            				buku[i].stok=buku[i].stok - banyakBuku[i];
+            				if(buku[i].stok<banyakBuku[i]){
+            					cout<<"\nStok buku tidak mencukupi, silahkan pilih buku yang lain!\n";
+            					system("pause");
+            					system("cls");
+            					goto Checkpointbuku;
+            				}else {
+            					buku[i].stok=buku[i].stok - banyakBuku[i];
+	            				buku[i].totalharga=banyakBuku[i]*buku[i].harga;
+            				}        				
             			}else if(beliBuku==0){
             				system("cls");
             				goto menuUtama;
+            			}else{
+            				
             			}
             		}
             		cout<<"Ingin membeli buku lain? (y/t) : ";cin>>kondisi;
