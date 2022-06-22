@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <iomanip>
+#include <cctype>
 #include "suntikbuku.h"
 using namespace std;
 int main(){
@@ -114,7 +115,10 @@ int main(){
                     if(pilihUbahdata==1){
                         system("cls");
                         inputBuku(buku,triggerArray);
+                        ubahKapitalJudul(buku,triggerArray);
+                        ubahKapitalPenulis(buku,triggerArray);
                         ubahHurufBesar(buku,triggerArray);
+                        system("cls");
                     }else if(pilihUbahdata==2){
                         ubahdata:
                         system("cls");
@@ -135,10 +139,12 @@ int main(){
                                 cout<<"Masukan Penulis Buku Yang Baru  : ";getline(cin,buku[i].penulis);
                                 cout<<"Masukan Stok Buku Yang Baru     : ";cin>>buku[i].stok;
                                 cout<<"Masukan Kode Buku Yang Baru     : ";cin>>buku[i].kode;
-                                //ubahHurufBesar(buku,triggerArray);
                                 cout<<"Masukan Harga Buku Yang Baru    : ";cin>>buku[i].harga;
                                 system("cls");
                                 cout << "Pengisian Buku Berhasil!\n";
+                                ubahKapitalJudul(buku,triggerArray);
+                                ubahKapitalPenulis(buku,triggerArray);
+                                ubahHurufBesar(buku,triggerArray);
                                 system("pause");
                                 system("cls");
                                 goto menuUtama;

@@ -21,7 +21,6 @@ void inputBuku(Buku buku[],int &triggerArray){
     cout<<"Masukkan Harga Buku   : ";cin>>buku[triggerArray].harga;
     buku[triggerArray].no=(triggerArray+1);
     triggerArray++;
-    system("cls");
 }
 void tampilBuku(Buku buku[],int triggerArray,int nomer){
     for(int i=0;i<triggerArray;i++){
@@ -93,12 +92,54 @@ void sortingHarga(Buku buku[],int triggerArray){
         }
     }
 }
-void ubahHurufBesar(Buku buku[],int &triggerArray){
-      triggerArray = triggerArray -1;
-      string hurufBesar = buku[triggerArray].kode;
-      for (int i=0;i<=hurufBesar.length();i++){
-            hurufBesar[i] = toupper(hurufBesar[i]);
-      }
+void ubahHurufBesar(Buku buku[],int triggerArray){
+    triggerArray = triggerArray -1;
+    string hurufBesar = buku[triggerArray].kode;
+    int lebar = hurufBesar.length();
+    for (int i=0;i<=lebar;i++){
+        hurufBesar[i] = toupper(hurufBesar[i]);
+    }
+    buku[triggerArray].kode = hurufBesar;
+}
+void ubahKapitalJudul(Buku buku[],int triggerArray){
+    triggerArray = triggerArray -1;
+    string kecil = buku[triggerArray].judul;
+    int lebar = kecil.length();
+    for (int i=0;i<=lebar;i++){
+        kecil[i] = tolower(kecil[i]);
+    }
+    string kapital = kecil;
+    for (int i=0;i<=lebar;i++){
+        char a = toupper(kapital[0]);
+        string timpa(1,a);
+        kapital = kapital.replace(0,1,timpa);
+        if (isspace (kapital[i]) || ispunct (kapital[i])){
+            char b= toupper(kapital[i+1]);
+            string tindas(1,b);
+            kapital.replace(i+1,1,tindas);
+        }
+    }
+    buku[triggerArray].judul=kapital;
+}
+void ubahKapitalPenulis(Buku buku[],int triggerArray){
+    triggerArray = triggerArray -1;
+    string kecil = buku[triggerArray].penulis;
+    int lebar = kecil.length();
+    for (int i=0;i<=lebar;i++){
+        kecil[i] = tolower(kecil[i]);
+    }
+    string kapital = kecil;
+    for (int i=0;i<=lebar;i++){
+        char a = toupper(kapital[0]);
+        string timpa(1,a);
+        kapital = kapital.replace(0,1,timpa);
+        if (isspace (kapital[i]) || ispunct (kapital[i])){
+            char b= toupper(kapital[i+1]);
+            string tindas(1,b);
+            kapital.replace(i+1,1,tindas);
+        }
+    }
+    buku[triggerArray].penulis=kapital;
 }
 void suntikBuku(Buku buku[],int &triggerArray){
     buku[0].no=1;
@@ -133,7 +174,7 @@ void suntikBuku(Buku buku[],int &triggerArray){
     buku[4].judul="Koala Kumal";
     buku[4].penulis="Raditya Dika";
     buku[4].stok=100;
-    buku[4].kode="KKRD10";
+    buku[4].kode="kkrd10";
     buku[4].harga=65000;
 
     triggerArray=5;
