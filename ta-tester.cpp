@@ -7,9 +7,9 @@
 using namespace std;
 int main(){
     int pilihMenu;
-    string pass,UbahDataKeranjang;
+    string pass;
     char kondisi;
-    int beliBuku,nomer=1,triggerArray=0,pilihAdmin,pilihSort,pilihKeranjang,Qty,ubahDataBuku,totalBelanja=0;
+    int beliBuku,nomer=1,triggerArray=0,pilihAdmin,pilihSort,pilihKeranjang,Qty,ubahDataBuku,UbahDataKeranjang=0,totalBelanja=0;
     Buku buku[1000];
     int banyakBuku[1000];
     suntikBuku(buku,triggerArray);
@@ -125,26 +125,29 @@ int main(){
                         }else if (pilihKeranjang==2){
                             UbahKeranjang:
                             cout<<"============================================================================\n";
-                            cout<<"=                          Menghapus Isi Keranjang                         =\n";
+                            cout<<"=                            Mengubah Keranjang                            =\n";
                             cout<<"============================================================================\n";
                             cout<<"= No  |      Judul Buku      |     Penulis     |  Harga   | Qty |  Total   =\n";
                             cout<<"============================================================================\n";
                             ubahKeranjang(buku,triggerArray,banyakBuku,nomer);
                             cout<<"============================================================================\n";
-                            cout<<"Masukkan Judul buku yang akan diubah : ";
-                            cin.ignore();
-                            getline(cin,UbahDataKeranjang);
-                            sesuaikanJudul(UbahDataKeranjang);
+                            cout<<"= 0   | Kembali Ke Menu Utama                                              =\n";
+                            cout<<"============================================================================\n";
+                            cout<<"Pilih buku yang akan diubah : ";cin>>UbahDataKeranjang;
                             for(int i=0;i<triggerArray;i++){
-                                if (UbahDataKeranjang == buku[i].judul){
+                                if (UbahDataKeranjang == nomer){
                                     banyakBuku[i]=0;
                                     buku[i].totalharga=0;
                                     totalBelanja=0;
                                     cout << "Buku Berhasil Dihapus!";
                                     getch();
                                     system("cls");
+                                }else if (ubahDataBuku == 0){
+                                    system("cls");
                                 }
+                                nomer += 1;
                             }
+                            nomer=1;
                             goto cpKeranjang;
                         }else{
                             system("cls");
@@ -185,10 +188,15 @@ int main(){
                         cout<<"\nPilih buku yang akan diubah : ";cin>>ubahDataBuku;
                         for(int i=0;i<triggerArray;i++){
                             if (nomer == ubahDataBuku){
-                                ubahBuku(buku,nomer);
+                                cin.ignore();
+                                cout<<"Masukan Judul Buku Yang Baru    : ";getline(cin,buku[i].judul);
                                 ubahJudul(buku,nomer);
+                                cout<<"Masukan Penulis Buku Yang Baru  : ";getline(cin,buku[i].penulis);
                                 ubahPenulis(buku,nomer);
+                                cout<<"Masukan Stok Buku Yang Baru     : ";cin>>buku[i].stok;
+                                cout<<"Masukan Kode Buku Yang Baru     : ";cin>>buku[i].kode;
                                 ubahKode(buku,nomer);
+                                cout<<"Masukan Harga Buku Yang Baru    : ";cin>>buku[i].harga;
                                 system("cls");
                                 cout << "Pengisian Buku Berhasil!";
                                 getch();

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 
 struct Buku
@@ -21,6 +23,15 @@ void inputBuku(Buku buku[],int &triggerArray){
     cout<<"Masukkan Harga Buku   : ";cin>>buku[triggerArray].harga;
     buku[triggerArray].no=(triggerArray+1);
     triggerArray++;
+}
+void ubahBuku(Buku buku[],int nomer){
+    nomer -= 1;
+    cin.ignore();
+    cout<<"Masukkan Judul Buku   : ";getline(cin,buku[nomer].judul);
+    cout<<"Masukkan Penulis Buku : ";getline(cin,buku[nomer].penulis);
+    cout<<"Masukkan Stok Buku    : ";cin>>buku[nomer].stok;
+    cout<<"Masukkan Kode Buku    : ";cin>>buku[nomer].kode;
+    cout<<"Masukkan Harga Buku   : ";cin>>buku[nomer].harga;
 }
 void tampilBuku(Buku buku[],int triggerArray,int nomer){
     for(int i=0;i<triggerArray;i++){
@@ -49,6 +60,37 @@ void keranjang(Buku buku[],int triggerArray,int banyakBuku[],int nomer,int &tota
             cout<<" | "<<setw(8)<<buku[i].totalharga;
             cout<<" ="<<endl;
             totalBelanja = totalBelanja + buku[i].totalharga;
+            nomer += 1;
+        }
+    }
+}
+void ubahKeranjang(Buku buku[],int triggerArray,int banyakBuku[],int nomer){
+    for(int i=0;i<triggerArray;i++){
+        if(banyakBuku[i]>0){
+            cout<<setiosflags(ios::left);
+            cout<<"= ";
+            cout<<setw(3)<<(nomer);
+            cout<<" | "<<setw(20)<<buku[i].judul;
+            cout<<" | "<<setw(15)<<buku[i].penulis;
+            cout<<" | "<<setw(8)<<buku[i].harga;
+            cout<<" | "<<setw(3)<<banyakBuku[i];
+            cout<<" | "<<setw(8)<<buku[i].totalharga;
+            cout<<" ="<<endl;
+            nomer += 1;
+        }
+    }
+}
+void struk(Buku buku[],int triggerArray,int banyakBuku[],int nomer){
+    for(int i=0;i<triggerArray;i++){
+        if(banyakBuku[i]>0){
+            cout<<setiosflags(ios::left);
+            cout<<"= ";
+            cout<<setw(3)<<(nomer);
+            cout<<" | "<<setw(20)<<buku[i].judul;
+            cout<<" | "<<setw(8)<<buku[i].harga;
+            cout<<" | "<<setw(3)<<banyakBuku[i];
+            cout<<" | "<<setw(8)<<buku[i].totalharga;
+            cout<<" ="<<endl;
             nomer += 1;
         }
     }
@@ -92,7 +134,7 @@ void sortingHarga(Buku buku[],int triggerArray){
         }
     }
 }
-void ubahHurufBesar(Buku buku[],int triggerArray){
+void ubahKode(Buku buku[],int triggerArray){
     triggerArray = triggerArray -1;
     string hurufBesar = buku[triggerArray].kode;
     int lebar = hurufBesar.length();
@@ -101,7 +143,7 @@ void ubahHurufBesar(Buku buku[],int triggerArray){
     }
     buku[triggerArray].kode = hurufBesar;
 }
-void ubahKapitalJudul(Buku buku[],int triggerArray){
+void ubahJudul(Buku buku[],int triggerArray){
     triggerArray = triggerArray -1;
     string kecil = buku[triggerArray].judul;
     int lebar = kecil.length();
@@ -121,7 +163,26 @@ void ubahKapitalJudul(Buku buku[],int triggerArray){
     }
     buku[triggerArray].judul=kapital;
 }
-void ubahKapitalPenulis(Buku buku[],int triggerArray){
+void sesuaikanJudul(string &UbahDataKeranjang){
+    string kecil = UbahDataKeranjang;
+    int lebar = kecil.length();
+    for (int i=0;i<=lebar;i++){
+            kecil[i] = tolower(kecil[i]);
+    }
+    string kapital = kecil;
+    for (int i=0;i<=lebar;i++){
+        char a = toupper(kapital[0]);
+        string timpa(1,a);
+        kapital = kapital.replace(0,1,timpa);
+        if (isspace (kapital[i]) || ispunct (kapital[i])){
+            char b= toupper(kapital[i+1]);
+            string tindas(1,b);
+            kapital.replace(i+1,1,tindas);
+        }
+    }
+    UbahDataKeranjang=kapital;
+}
+void ubahPenulis(Buku buku[],int triggerArray){
     triggerArray = triggerArray -1;
     string kecil = buku[triggerArray].penulis;
     int lebar = kecil.length();
@@ -174,8 +235,17 @@ void suntikBuku(Buku buku[],int &triggerArray){
     buku[4].judul="Koala Kumal";
     buku[4].penulis="Raditya Dika";
     buku[4].stok=100;
-    buku[4].kode="kkrd10";
+    buku[4].kode="KKRD10";
     buku[4].harga=65000;
 
     triggerArray=5;
+}
+void kodePembayaran(){
+    const char data[] = {"0123456789""ABCDEFGHIJKLMNOPQRSTUVWXYZ""abcdefghijklmnopqrstuvwxyz"};
+    int size = sizeof(data)-1;
+    int length = 16;
+    srand(time(0));
+    for(int i=0;i<length;i++){
+        cout<<data[rand()%size];
+    }
 }
