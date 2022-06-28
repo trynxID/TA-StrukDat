@@ -137,6 +137,7 @@ int main(){
                             sesuaikanJudul(UbahDataKeranjang);
                             for(int i=0;i<triggerArray;i++){
                                 if (UbahDataKeranjang == buku[i].judul){
+                                    buku[i].stok += banyakBuku[i]; 
                                     banyakBuku[i]=0;
                                     buku[i].totalharga=0;
                                     totalBelanja=0;
