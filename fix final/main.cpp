@@ -3,7 +3,8 @@
 #include <string.h>
 #include <iomanip>
 #include <conio.h>
-#include "suntikbuku.h"
+#include "function.h"
+#include "injectBook.h"
 using namespace std;
 int main(){
     int pilihMenu;
