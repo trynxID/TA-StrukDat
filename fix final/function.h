@@ -5,14 +5,8 @@ using namespace std;
 
 struct Buku
 {
-    string judul;
-    string penulis;
-    string kode;
-    int stok;
-    int harga;
-    int no;
-    int totalharga;
-    int dibeli=0;
+    string judul,penulis,kode;
+    int stok,harga,no,totalharga;
 };
 void inputBuku(Buku buku[],int &triggerArray){
     cin.ignore();

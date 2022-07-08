@@ -9,7 +9,7 @@ using namespace std;
 int main(){
     int pilihMenu;
     string pass,UbahDataKeranjang;
-    char kondisi;
+    char kondisi,dt;
     int beliBuku,nomer=1,triggerArray=0,pilihAdmin,pilihSort,pilihKeranjang,Qty,ubahDataBuku,totalBelanja=0;
     Buku buku[1000];
     int banyakBuku[1000];
