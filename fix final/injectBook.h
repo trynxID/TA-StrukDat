@@ -1,4 +1,4 @@
-void suntikBuku(Buku buku[],int &triggerArray){
+void suntikBuku(Buku buku[],int &triggerArray){ //Fungsi untuk memberikan data buku (dummy)
     buku[0].no=1;
     buku[0].judul="Laskar Pelangi";
     buku[0].penulis="Andrea Hirata";
